@@ -42,8 +42,8 @@ function getUserData() {
 
 const colors = {
     salmon: {
-        wrapperBackground: "#5F64D3",
-        headerBackground: "salmon",
+        wrapperBackground: "salmon",
+        headerBackground: "rgb(79, 109, 165)",
         headerColor: "white"
     },
     blue: {
@@ -179,7 +179,7 @@ function generateHTML(answers, gitHubData, stars) {
 async function init() {
 
     console.log("Getting started...");
-    
+
     try {
 
         const answers = await getUserData();
