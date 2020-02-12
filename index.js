@@ -43,11 +43,6 @@ const getCSS = function() {
     header {
         margin-bottom: 10vh;
     }
-    body {
-        background-image: linear-gradient(to bottom, rgb(79, 109, 165), rgb(79, 109, 165) 50%, rgba(0,0,0,.03) 50%, rgba(0,0,0,.03));
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
     footer {
         height: 25vh;
         background-color: rgb(79, 109, 165);
@@ -58,6 +53,7 @@ const getCSS = function() {
     .bio {
         margin: 2rem;
         font-family: 'Abril Fatface', cursive;
+        color: rgb(79, 109, 165);
     }
     .card-body {
         color: white;
