@@ -3,10 +3,13 @@
 
 ## Built with
 
+* 3rd-party API 
+* Bootstrap
 * JavaScript
 * Node
-* 3rd-party API
-* Bootstrap
+    * inquirer
+    * html-pdf
+    * axios
 
 ## Overview
 
@@ -28,9 +31,9 @@ The PDF will be populated with the following:
 * Number of GitHub stars
 * Number of users following
 
-## User Story
+## Purpose
 ```
-As a product manager,
-I want a developer profile generator,
-So that I can easily prepare reports for stakeholders.
+Given the developer has a GitHub profile,
+When promped for their username and favorite color,
+Then a PDF profile is generated.
 ```
