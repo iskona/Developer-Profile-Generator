@@ -40,42 +40,36 @@ function getUserData() {
     ])
 }
 
-const getCSS = function () {
-
-    return `
-    html, body {
-        margin: 0;
-        height: 100%;
+const colors = {
+    salmon: {
+        wrapperBackground: "#5F64D3",
+        headerBackground: "salmon",
+        headerColor: "white"
+    },
+    blue: {
+        wrapperBackground: "#5F64D3",
+        headerBackground: "#26175A",
+        headerColor: "white"
+    },
+    green: {
+        wrapperBackground: "#E6E1C3",
+        headerBackground: "#C1C72C",
+        headerColor: "rgb(79, 109, 165)"
+    },
+    pink: {
+        wrapperBackground: "#879CDF",
+        headerBackground: "#FF8374",
+        headerColor: "white"
+    },
+    red: {
+        wrapperBackground: "#DE9967",
+        headerBackground: "#870603",
+        headerColor: "white"
     }
-    header {
-        margin-bottom: 10vh;
-    }
-    footer {
-        height: 25vh;
-        background-color: rgb(79, 109, 165);
-    }
-    img {
-        width: 40vh;
-    }
-    .bio {
-        margin: 2rem;
-        font-family: 'Abril Fatface', cursive;
-        color: rgb(79, 109, 165);
-    }
-    .card-body {
-        color: white;
-        font-family: 'Josefin Sans', sans-serif;
-    }
-    .card-header {
-        background-color: rgb(79, 109, 165);
-    }
-    .btn {
-        color: white;
-    }`
-}
+};
 
 
-function generateHTML(answers, gitHubData, stars, css) {
+function generateHTML(answers, gitHubData, stars) {
 
     return `
         <!DOCTYPE html>
@@ -90,7 +84,36 @@ function generateHTML(answers, gitHubData, stars, css) {
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Josefin+Sans&display=swap" rel="stylesheet">
     <title>GitHub Profile</title>
     <style>
-      ${css}
+    html, body {
+        margin: 0;
+        height: 100%;
+    }
+    header {
+        margin-bottom: 10vh;
+    }
+    footer {
+        height: 25vh;
+        background-color: ${colors[answers.color].headerBackground};
+    }
+    img {
+        width: 40vh;
+    }
+    .bio {
+        margin: 2rem;
+        font-family: 'Abril Fatface', cursive;
+        color: rgb(79, 109, 165);
+    }
+    .card-body {
+        color: ${colors[answers.color].headerColor};
+        font-family: 'Josefin Sans', sans-serif;
+        background-color: ${colors[answers.color].wrapperBackground};
+    }
+    .card-header {
+        background-color: ${colors[answers.color].headerBackground};
+    }
+    .btn {
+        color: ${colors[answers.color].headerColor};
+    }
     </style>
 </head>
 <body>
@@ -100,7 +123,7 @@ function generateHTML(answers, gitHubData, stars, css) {
             <div class="card-header">
                 <img src="${gitHubData.avatar_url}" class="img-fluid img-thumbnail rounded-circle" alt="profile image">
             </div>
-            <div class="card-body" style="background-color: ${answers.color};">
+            <div class="card-body">
                 <h5 class="card-title">Hi!</h5>
                 <h5 class="card-title">My name is ${gitHubData.name} and username ${answers.username}</h5>
                 <h5 class="card-title">Currently @ ${gitHubData.company}</h5>
@@ -115,7 +138,7 @@ function generateHTML(answers, gitHubData, stars, css) {
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col mb-4">
                 <div class="card w-85 text-center">
-                    <div class="card-body" style="background-color: ${answers.color};">
+                    <div class="card-body">
                         <h5 class="card-title">Public Repositories</h5>
                         <h5 class="card-title">${gitHubData.public_repos}</h5>
                     </div>
@@ -123,7 +146,7 @@ function generateHTML(answers, gitHubData, stars, css) {
             </div>
             <div class="col mb-4">
                 <div class="card w-85 text-center">
-                    <div class="card-body" style="background-color: ${answers.color};">
+                    <div class="card-body">
                         <h5 class="card-title">Followers</h5>
                         <h5 class="card-title">${gitHubData.followers}</h5>
                     </div>
@@ -131,7 +154,7 @@ function generateHTML(answers, gitHubData, stars, css) {
             </div>
             <div class="col mb-4">
                 <div class="card w-85 text-center">
-                    <div class="card-body" style="background-color: ${answers.color};">
+                    <div class="card-body">
                         <h5 class="card-title">GitHub Stars</h5>
                         <h5 class="card-title">${stars}</h5>
                     </div>
@@ -139,7 +162,7 @@ function generateHTML(answers, gitHubData, stars, css) {
             </div>
             <div class="col mb-4">
                 <div class="card w-85 text-center">
-                    <div class="card-body" style="background-color: ${answers.color};">
+                    <div class="card-body">
                         <h5 class="card-title">Following</h5>
                         <h5 class="card-title">${gitHubData.following}</h5>
                     </div>
@@ -154,7 +177,9 @@ function generateHTML(answers, gitHubData, stars, css) {
 
 
 async function init() {
+
     console.log("Getting started...");
+    
     try {
 
         const answers = await getUserData();
@@ -166,13 +191,10 @@ async function init() {
             for (let i = 0; i < res.data.length; i++) {
                 starCount += res.data[i].stargazers_count;
             }
-            console.log(`Star Counter: ${starCount}`);
             return starCount;
         });
 
-        const css = getCSS();
-
-        const html = await generateHTML(answers, data, stars, css);
+        const html = await generateHTML(answers, data, stars);
 
         await writeFileAsync(`${answers.username}.html`, html);
 
