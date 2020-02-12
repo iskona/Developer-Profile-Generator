@@ -1,6 +1,5 @@
 # Developer Profile Generator
 
-[Click here](https://iskona.github.io/Developer-Profile-Generator/) to launch this project on GitHub Pages.
 
 ## Built with
 
