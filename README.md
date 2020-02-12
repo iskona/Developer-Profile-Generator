@@ -37,3 +37,19 @@ Given the developer has a GitHub profile,
 When promped for their username and favorite color,
 Then a PDF profile is generated.
 ```
+
+## Screenshots
+### Launch
+<img alt="invoke" src="img/invoke.png" />
+
+### Name prompt
+<img alt="name-propmt" src="img/name_prompt.png" />
+
+### Color prompt
+<img alt="color-propmt" src="img/color_prompt.png" />
+
+### Result
+<img alt="result" src="img/result.png" />
+
+### HTML version
+<img alt="html" src="img/html_version.png" />
