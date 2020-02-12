@@ -11,29 +11,36 @@ const writeFileAsync = util.promisify(fs.writeFile);
 
 function convertToPDF(html, name) {
 
-    pdf.create(html, options).toFile(`./${name}.pdf`, function(err, res) {
+    pdf.create(html, options).toFile(`./${name}.pdf`, function (err, res) {
         if (err) return console.log(err);
         console.log(res); // { filename: './{username}.pdf' }
-      });
+    });
 }
 
 
 function getUserData() {
+
     return inquirer.prompt([
         {
             type: 'input',
-            message: "Enter your GitHub username",
-            name: "username"
+            name: "username",
+            message: "Enter your GitHub username"
         },
         {
-            type: 'input',
+            type: 'list',
+            name: "color",
             message: "What's your favorite color?",
-            name: "color"
+            choices: [
+                'salmon',
+                'blue',
+                'green',
+                'pink',
+                'red']
         }
     ])
 }
 
-const getCSS = function() {
+const getCSS = function () {
 
     return `
     html, body {
@@ -69,7 +76,7 @@ const getCSS = function() {
 
 
 function generateHTML(answers, gitHubData, stars, css) {
-    
+
     return `
         <!DOCTYPE html>
 <html lang="en">
